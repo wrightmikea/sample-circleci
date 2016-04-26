@@ -1,12 +1,14 @@
 machine:
+  timezone:
+    Asia/Tokyo
   java:
     version: openjdk8
 
 test:
+  pre:
+    - gradle javadoc
   override:
-    - gradle test
-    - gradle checkstyleMain
-    - gradle findbugsMain
+    - gradle check
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/test-results/*/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
@@ -14,3 +16,4 @@ test:
 general:
   artifacts:
     - "build/reports/"
+    - "build/docs/"
