@@ -6,8 +6,11 @@ jobs:
     docker:
       - image: circleci/openjdk:8
     steps:
-      - run: gradle build
-            path: ~/sample-circleci
+      - run: |
+            cd ~/sample-circleci
+            dir
+            gradle tasks
+            gradle build
       - store_artifacts:
             path: ~/sample-circleci/build/libs/sample-circleci.jar
 
