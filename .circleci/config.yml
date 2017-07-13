@@ -7,8 +7,9 @@ jobs:
       - image: circleci/openjdk:8
     steps:
       - run: gradle build
+            path: ~/sample-circleci
       - store_artifacts:
-            path: target/sample-circleci/xxx-0.0.1-SNAPSHOT.jar
+            path: ~/sample-circleci/build/libs/sample-circleci.jar
 
   test:
     working_directory: ~/sample-circleci
@@ -16,12 +17,12 @@ jobs:
       - image: circleci/openjdk:8
     steps:
       - run: |
-          mkdir -p /junit/
-          find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} /junit/ \;
+          mkdir -p junit/
+          find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} junit/ \;
       - store_test_results:
-          path: /junit
+          path: junit
       - store_artifacts:
-          path: /junit          
+          path: junit          
       
 workflows:
   version: 2
